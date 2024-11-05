@@ -1,6 +1,6 @@
 import { create } from "domain";
-import { UserRepositoryInMemory } from "src/modules/user/repositories/UserRepositoryInMemory"
-import { CreateUserUseCase } from "./CreateUserUseCase";
+import { UserRepositoryInMemory } from "src/modules/user/repositories/user-repository-in-memory"
+import { CreateUserUseCase } from "./create-user-use-case";
 import { compare } from "bcrypt";
 
 let userRepositoryInMemory: UserRepositoryInMemory;

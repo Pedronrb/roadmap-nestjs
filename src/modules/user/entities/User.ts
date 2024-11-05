@@ -1,17 +1,17 @@
 import { randomUUID } from "crypto";
-import { Replace } from "src/utils/Replace";
+import { Replace } from "src/utils/replace";
 
 // Classe que define a estrutura com uma interface para modelar um User  
 interface UserSchema{
     email: string;
-    password: string;
     name: string;
+    password: string;
     createdAt?: Date;
 }
 
 export class User{
-    props: UserSchema; //props serve como um container para as propriedades do user.
-    _id: string;
+    private props: UserSchema; //props serve p/ armazenar tds as propriedades do objeto em um unico lugar
+    private _id: string;
 
     //"?" significa que e opcional
     constructor(props: Replace<UserSchema, {createdAt?: Date}>, id?: string){
@@ -42,12 +42,12 @@ export class User{
         this.props.password = password;
     } 
 
-    get nome(): string {
+    get name(): string {
         return this.props.name;
     }
 
     set name(name: string) {
-        this.props.name = name  ;
+        this.props.name = name ;
     } 
     get createdAt(): Date {
         return this.props.createdAt || new Date(); // Retorna a data ou a nova data se não estiver definida

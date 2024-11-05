@@ -1,6 +1,6 @@
 import { create } from "domain"
-import { UserRepository } from "./UserRepository"
-import { User } from "../entities/User"
+import { UserRepository } from "./user-repository"
+import { User } from "../entities/user"
 
 export class Database implements UserRepository{
     create(user: User): Promise<void>{
