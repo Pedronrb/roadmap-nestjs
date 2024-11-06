@@ -1,11 +1,11 @@
-import { Module } from "@nestjs/common";
-import { UserModule } from "./infra/http/modules/user/user-module";
-import { DatabaseModule } from "./infra/database/prisma/database-module";
+import { Module } from '@nestjs/common';
+import { UserModule } from './infra/http/modules/user/user-module';
+import { DatabaseModule } from './infra/database/prisma/database-module';
+import { AuthModule } from './infra/http/modules/auth/auth-module';
 
 @Module({
-    imports: [DatabaseModule, UserModule],
-    controllers: [],
-    providers: [],
+  imports: [DatabaseModule, UserModule, AuthModule],
+  controllers: [],
+  providers: [],
 })
-
-export class AppModule{}
+export class AppModule {}
