@@ -1,6 +1,6 @@
 import { Controller, Module } from '@nestjs/common';
 import { UserController } from './user-controller';
-import { CreateUserUseCase } from 'src/modules/userCases/createUserUseCase/create-user-use-case';
+import { CreateUserUseCase } from 'src/modules/user/userCases/createUseCase/create-user-use-case';
 import { DatabaseModule } from 'src/infra/database/prisma/database-module';
 
 @Module({
