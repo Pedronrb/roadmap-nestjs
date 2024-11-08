@@ -1,4 +1,4 @@
-import { NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { NoteRepository } from "../../repositories/note-repository";
 
 
@@ -7,7 +7,7 @@ interface GetNoteRequest{
     userId: string;
 
 }
-
+@Injectable()
 export class GetNoteUseCase{
     constructor(private noteRepository: NoteRepository){}
 

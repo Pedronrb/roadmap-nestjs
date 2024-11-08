@@ -1,5 +1,5 @@
 
-import { NotFoundException, UnauthorizedException } from "@nestjs/common";
+import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { Note } from "../../entities/note";
 import { NoteRepository } from "../../repositories/note-repository";
 
@@ -8,7 +8,7 @@ interface DeleteNoteRequest{
     noteId: string;
     userId: string;
 }
-
+@Injectable()
 export class DeleteNoteUseCase{
     constructor(private noteRepository: NoteRepository){}
 

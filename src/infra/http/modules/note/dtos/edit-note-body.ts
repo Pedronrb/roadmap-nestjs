@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator/types/decorator/decorators"
+import { IsNotEmpty, IsOptional, IsString } from "class-validator"
 
 export class EditNoteBody{
 

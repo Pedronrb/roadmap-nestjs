@@ -1,32 +1,65 @@
-import { Injectable } from "@nestjs/common";
-import { Note } from "src/modules/note/entities/note";
-import { NoteRepository } from "src/modules/note/repositories/note-repository";
-import { PrismaService } from "../prisma-service";
-import { PrismaNoteMapper } from "../mappers/prisma-note-mapper";
+import { Note } from 'src/modules/note/entities/note';
+import { Injectable } from '@nestjs/common';
+import { NoteRepository } from 'src/modules/note/repositories/note-repository';
+import { PrismaService } from '../prisma-service';
+import { PrismaNoteMapper } from '../mappers/prisma-note-mapper';
 
 @Injectable()
-export class PrismaNoteRepository implements NoteRepository{
+export class PrismaNoteRepository implements NoteRepository {
+  constructor(private prisma: PrismaService) {}
 
-    constructor(private prisma: PrismaService){}
-    
-    create(note: Note): Promise<void> {
-        const noteRaw = PrismaNoteMapper.toPrisma(note);
+  async create(note: Note): Promise<void> {
+    const noteRaw = PrismaNoteMapper.toPrisma(note);
 
-        await this.prisma.note.create({
-            data: noteRaw,
-        });
-    }
-    findById(id: string): Promise<Note | null> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    save(note: Note): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    findManyByUserId(userId: string, page: number, perPage: number): Promise<Note[]> {
-        throw new Error("Method not implemented.");
-    }
-    
+    await this.prisma.note.create({
+      data: noteRaw,
+    });
+  }
+
+  async findById(id: string): Promise<Note | null> {
+    const note = await this.prisma.note.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!note) return null;
+
+    return PrismaNoteMapper.toDomain(note);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.note.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async save(note: Note): Promise<void> {
+    const noteRaw = PrismaNoteMapper.toPrisma(note);
+
+    await this.prisma.note.update({
+      data: noteRaw,
+      where: {
+        id: noteRaw.id,
+      },
+    });
+  }
+
+  async findManyByUserId(
+    userId: string,
+    page: number,
+    perPage: number,
+  ): Promise<Note[]> {
+    const notes = await this.prisma.note.findMany({
+      where:{
+        userId
+      },
+      take: perPage,
+      skip: (page - 1) * perPage,
+    });
+
+    return notes.map(PrismaNoteMapper.toDomain);
+  }
 }

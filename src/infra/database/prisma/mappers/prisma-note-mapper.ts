@@ -3,23 +3,23 @@ import { Note } from 'src/modules/note/entities/note';
 
 export class PrismaNoteMapper {
   static toPrisma({
-    createAt,
+    createdAt,
     description,
     id,
     title,
     userId,
   }: Note): NoteRaw {
     return {
-      createAt,
-      description,
+      description: description ?? "",
+      createdAt,
       id,
       title,
-      userId,
+      userId, 
     };
   }
 
   static toDomain({
-    createAt,
+    createdAt,
     description,
     id,
     title,
@@ -27,7 +27,7 @@ export class PrismaNoteMapper {
   }: NoteRaw): Note {
     return new Note(
       {
-        createAt,
+        createdAt,
         description,
         title,
         userId,

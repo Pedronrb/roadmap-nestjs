@@ -7,7 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { NoteModule } from './infra/http/modules/note/note-module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, UserModule, NoteModule],
+  imports: [DatabaseModule, UserModule, AuthModule, NoteModule],
   controllers: [],
   providers: [
     {

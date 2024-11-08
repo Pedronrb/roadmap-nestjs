@@ -1,12 +1,12 @@
 import { Note } from "src/modules/note/entities/note";
 
 export class NoteViewModel{
-    static toHttp({createAt, description, id, title}: Note){
+    static toHttp({id, title, description, createdAt}: Note){
         return{
-            createAt,
-            description,
             id,
             title,
+            description,
+            createdAt,
         };
     }
 }
