@@ -2,16 +2,15 @@ import { randomUUID } from "crypto";
 import { Replace } from "src/utils/replace";
 
 interface NoteProps{
-    title: string
+    title: string;
     description: string | null;
     userId: string;
     createAt: Date;
 }
 
-
 export class Note{
     private props: NoteProps;
-    private _id: string
+    private _id: string;
 
     constructor(
         props: Replace<NoteProps, {createAt?: Date; description?: string | null}>,
@@ -50,7 +49,7 @@ export class Note{
       return this.props.userId;
     }
   
-    get createdAt(): Date {
+    get createAt(): Date {
       return this.props.createAt || new Date(); // Retorna a data ou a nova data se não estiver definida
     }
 }
