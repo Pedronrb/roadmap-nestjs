@@ -5,6 +5,7 @@ import { User } from 'src/modules/user/entities/user';
 import { use } from 'passport';
 import { makeUser } from 'src/modules/user/factories/user-factory';
 import { UnauthorizedException } from '@nestjs/common';
+import { AuthValuesIncorrectException } from '../../exceptions/auth-values-incorrect-exciption';
 
 let validateUserUseCase: ValidateUserUseCase;
 let userRepositoryInMemory: UserRepositoryInMemory;
@@ -46,13 +47,13 @@ describe('VAlidate user', () => {
         email: 'incorrect@gmail.com',
         password: userPasswordWithoutEncryption,
       });
-    }).rejects.toThrow(UnauthorizedException);
+    }).rejects.toThrow(AuthValuesIncorrectException);
 
     expect(async () => {
       await validateUserUseCase.execute({
         email: user.email,
         password: 'incorrect password',
       });
-    }).rejects.toThrow(UnauthorizedException);
+    }).rejects.toThrow(AuthValuesIncorrectException);
   });
 });

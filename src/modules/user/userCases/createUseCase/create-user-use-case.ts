@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from 'src/modules/user/repositories/user-repository';
-import { User } from 'src/modules/user/entities/user';
-import { Hash, hash } from 'crypto';
-import { hashSync } from 'bcrypt';
+import { User } from '../../entities/User';
+import { hash } from 'bcrypt';
+import { UserRepository } from '../../repositories/user-repository';
+import { UserWithSameEmailException } from '../../exception/user-with-same-email-exception ';
+
 
 interface CreateUserRequest {
   email: string;
@@ -15,13 +16,18 @@ export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
   async execute({ email, name, password }: CreateUserRequest) {
-    //Funções assíncronas aquelas que realizam operações que levam um tempo para serem concluídas, como chamadas de rede ou acesso a banco de dados
+    const userAlreadyExist = await this.userRepository.findByEmail(email);
+
+    if (userAlreadyExist) throw new UserWithSameEmailException();
+
     const user = new User({
       email,
       name,
-      password: await hashSync(password, 10),
+      password: await hash(password, 10),
     });
+
     await this.userRepository.create(user);
+
     return user;
   }
 }

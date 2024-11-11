@@ -2,6 +2,8 @@ import { create } from 'domain';
 import { UserRepositoryInMemory } from 'src/modules/user/repositories/user-repository-in-memory';
 import { CreateUserUseCase } from './create-user-use-case';
 import { compare } from 'bcrypt';
+import { UserWithSameEmailException } from '../../exception/user-with-same-email-exception ';
+import { makeUser } from '../../factories/user-factory';
 
 let userRepositoryInMemory: UserRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
@@ -39,5 +41,20 @@ describe('Create User', () => {
     );
 
     expect(userHasPasswordEncrypted).toBeTruthy;
+  });
+
+  it('Should be able to thorw error when create user with already exist email', () => {
+    const user = makeUser({});
+
+    userRepositoryInMemory.users = [user];
+
+    expect(
+      async () =>
+        await createUserUseCase.execute({
+          email: user.email,
+          name: 'vitor',
+          password: '123123',
+        }),
+    ).rejects.toThrow(UserWithSameEmailException);
   });
 });

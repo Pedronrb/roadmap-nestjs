@@ -18,6 +18,7 @@ import { AuthenticatedRequestModel } from '../auth/models/authenticated-request-
 import { CreateNoteBody } from './dtos/create-note-body';
 import { NoteViewModel } from './viewModels/note-view-model';
 import { EditNoteBody } from './dtos/edit-note-body';
+import { ApiBearerAuth, ApiBody, ApiProperty } from '@nestjs/swagger';
   
   
   @Controller('notes')
@@ -31,6 +32,8 @@ import { EditNoteBody } from './dtos/edit-note-body';
     ) {}
   
     @Post()
+    @ApiBearerAuth()
+    @ApiBody({type: CreateNoteBody})
     async createNote(
       @Request() request: AuthenticatedRequestModel,
       @Body() body: CreateNoteBody,
@@ -47,6 +50,7 @@ import { EditNoteBody } from './dtos/edit-note-body';
     }
   
     @Delete(':id')
+    @ApiBearerAuth()
     async deleteNote(
       @Request() request: AuthenticatedRequestModel,
       @Param('id') noteId: string,
@@ -58,6 +62,8 @@ import { EditNoteBody } from './dtos/edit-note-body';
     }
   
     @Put(':id')
+    @ApiBearerAuth()
+    @ApiBody({type: EditNoteBody})
     async editNote(
       @Request() request: AuthenticatedRequestModel,
       @Param('id') noteId: string,
@@ -74,6 +80,7 @@ import { EditNoteBody } from './dtos/edit-note-body';
     }
   
     @Get(':id')
+    @ApiBearerAuth()
     async getNote(
       @Request() request: AuthenticatedRequestModel,
       @Param('id') noteId: string,
@@ -87,6 +94,7 @@ import { EditNoteBody } from './dtos/edit-note-body';
     }
   
     @Get()
+    @ApiBearerAuth()
     async getManyNote(
       @Request() request: AuthenticatedRequestModel,
       @Query('page') page: string,
