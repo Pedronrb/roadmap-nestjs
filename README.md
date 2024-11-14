@@ -22,10 +22,23 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Descrição
+Este projeto é uma aplicação backend que permite cadastro e autenticação de usuários, além de gestão de notas associadas a cada um. Usuários podem se registrar com email, nome e senha, gerando um token JWT para autenticação. Após autenticados, podem criar, visualizar, editar e deletar suas próprias notas pessoais. Cada nota está vinculada ao usuário que a criou, garantindo controle e privacidade. A API é documentada automaticamente com Swagger, facilitando a visualização e teste das rotas. O projeto é construído com NestJS, proporcionando uma estrutura modular, escalável e segura para o desenvolvimento backend.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Funcionalidades do projeto
+Cadastro de Usuário: Os usuários podem se cadastrar fornecendo nome, email e senha.
 
+    Ao se cadastrar, é gerado automaticamente um token JWT, que autentica o usuário e permite acesso seguro às funcionalidades da aplicação.
+
+Autenticação com JWT: Usuários podem fazer login utilizando email e senha.
+
+    Após a autenticação, é retornado um token JWT, que deverá ser enviado com as solicitações subsequentes para acessar rotas protegidas.
+    Este token garante que apenas o usuário autenticado possa acessar, criar e gerenciar suas notas.
+
+Gestão de Notas: Cada usuário pode criar, visualizar, editar e excluir suas próprias notas.
+
+    As notas são associadas ao usuário autenticado, garantindo que cada usuário veja apenas as suas notas.
+    Essa estrutura permite que a aplicação funcione como um gerenciador de notas pessoais.
 ## Project setup
 
 ```bash
