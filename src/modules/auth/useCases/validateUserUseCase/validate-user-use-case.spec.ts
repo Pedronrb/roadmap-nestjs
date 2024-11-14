@@ -10,7 +10,7 @@ import { AuthValuesIncorrectException } from '../../exceptions/auth-values-incor
 let validateUserUseCase: ValidateUserUseCase;
 let userRepositoryInMemory: UserRepositoryInMemory;
 
-describe('VAlidate user', () => {
+describe('Validate user', () => {
   beforeEach(() => {
     userRepositoryInMemory = new UserRepositoryInMemory();
     validateUserUseCase = new ValidateUserUseCase(userRepositoryInMemory);

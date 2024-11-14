@@ -97,13 +97,9 @@ import { ApiBearerAuth, ApiBody, ApiProperty } from '@nestjs/swagger';
     @ApiBearerAuth()
     async getManyNote(
       @Request() request: AuthenticatedRequestModel,
-      @Query('page') page: string,
-      @Query('perPage') perPage: string,
     ) {
       const users = await this.getManyNoteUseCase.execute({
         userId: request.user.Id,
-        page,
-        perPage,
       });
   
       return users.map(NoteViewModel.toHttp);

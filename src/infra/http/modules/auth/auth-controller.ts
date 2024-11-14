@@ -14,6 +14,8 @@ import { LocalAuthGuard } from './guards/local-auth-guard';
 import { JwtAuthGuard } from './guards/jwt-auth-guard';
 import { Public } from './guards/decorators/is-public';
 import { AuthenticatedRequestModel } from './models/authenticated-request-model';
+import { ApiBody } from '@nestjs/swagger';
+import { SingInBody } from './dto/singIn-body';
 
 
 @Controller()
@@ -21,6 +23,7 @@ export class AuthController {
   constructor(private signInUseCase: SignInUseCase){}
 
   @Post('signIn')
+  @ApiBody({type: SingInBody})
   @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
